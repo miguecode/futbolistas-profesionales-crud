@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Segundo Parcial</title>
+    <link rel="shortcut icon" href="./img/ghost2.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/estilos.css" />
+    <script src="./js/funcionalidad/logica.js" type="module" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Aplicación</h1>
+      <img src="./img/ghost.gif" alt="loader ghost" id="loader" />
+    </header>
+    <main class="contenedor-flex" id="main">
+      <section id="seccion-datos">
+        <div id="tabla-contenedor"></div>
+        <button type="button" id="botonABM">AGREGAR ELEMENTO</button>
+      </section>
+
+      <section id="seccion-ABM">
+        <h1 id="tituloABM">Alta</h1>
+        <form id="form-ABM">
+          <div class="linea">
+            <label id="idLabel" for="id">ID</label>
+            <input
+              type="text"
+              name="txtId"
+              id="id"
+              autocomplete="off"
+              disabled
+              required
+            />
+            <label for="nombre">Nombre</label>
+            <input
+              type="text"
+              name="txtNombre"
+              id="nombre"
+              autocomplete="off"
+              required
+            />
+            <label for="apellido">Apellido</label>
+            <input
+              type="text"
+              name="txtApellido"
+              id="apellido"
+              autocomplete="off"
+              required
+            />
+            <label for="edad">Edad</label>
+            <input
+              type="number"
+              name="numEdad"
+              id="edad"
+              min="18"
+              max="65"
+              value="18"
+              required
+            />
+          </div>
+
+          <!-- ----------------------------------------------------------------------------------- -->
+
+          <div class="linea">
+            <div id="selectTipo">
+              <label for="tipo">Tipo:</label>
+              <select name="selTipo" id="tipo">
+                <option value="Empleados">Empleados</option>
+                <option value="Clientes">Clientes</option>
+              </select>
+            </div>
+
+            <div id="inputEmpleados" class="linea">
+              <label for="ventas">Ventas</label>
+              <input
+                type="number"
+                name="numVentas"
+                id="ventas"
+                min="1"
+                value="1"
+              />
+              <label for="sueldo">Sueldo</label>
+              <input
+                type="number"
+                name="numSueldo"
+                id="sueldo"
+                min="1"
+                value="50000"
+              />
+            </div>
+
+            <div id="inputClientes" class="linea">
+              <label for="compras">Compras</label>
+              <input
+                type="number"
+                name="numCompras"
+                id="compras"
+                min="1"
+                value="1"
+              />
+              <label for="telefono">Telefono</label>
+              <input
+                type="number"
+                name="numTelefono"
+                id="telefono"
+                min="1000000"
+                value=""
+              />
+            </div>
+          </div>
+
+          <!-- <fieldset>
+            <legend>Género</legend>
+            <input type="radio" name="rdoGenero" value="Femenino" checked />
+            Femenino <br />
+            <input type="radio" name="rdoGenero" value="Masculino" />
+            Masculino <br />
+            </fieldset> -->
+          <div class="linea">
+            <input type="submit" value="Agregar" id="inputSubmit" />
+            <input type="hidden" value="Eliminar" id="inputBaja" />
+            <button type="button" id="botonCancelar">Cancelar</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
