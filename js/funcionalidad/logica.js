@@ -374,9 +374,7 @@ $formABM.addEventListener("submit", (e) => {
 
                 updatePersona(clienteNuevo);
             }
-        }
-
-        if ($tituloABM.textContent === "Eliminación") {
+        } else { //Si no es Alta ni Modificación, es Baja
             deletePersona(txtId.value);
             let index = listaGlobal.findIndex((p) => p.id == txtId.value);
             listaGlobal.splice(index, 1);
