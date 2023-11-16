@@ -259,3 +259,10 @@ input[type="submit"]:hover {
 #seccion-datos {
     display: none;
 }
+
+.idProhibida {
+    background-color: rgb(185, 71, 43);
+}
+.idProhibida:hover {
+    background-color: rgb(128, 50, 30);
+}

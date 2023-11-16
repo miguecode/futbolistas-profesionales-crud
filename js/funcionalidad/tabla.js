@@ -45,50 +45,53 @@ const crearCuerpo = (listaDeElementos, columnas) => {
     const tbody = document.createElement("tbody");
 
     listaDeElementos.forEach((elemento, index) => {
-        if (elemento.id !== 666 && elemento.id !== '666') {
-            const tr = document.createElement("tr");
+        // Si habilito este if, evitaria que la tabla cree una fila con ID '666'
+        //if (elemento.id !== 666 && elemento.id !== '666') {  }
+        const tr = document.createElement("tr");
 
-            if (index % 2 === 0) {
-                tr.classList.add("filaPar"); 
-            }
-    
-            for (const columna of columnas) {
-                const td = document.createElement("td");
-                const valor = elemento[columna] || "N/A";
-    
-                if (columna === "id") {
-                    tr.setAttribute("data-id", valor);
-                }
-    
-                td.textContent = valor;
-                tr.appendChild(td);
-            }
-    
-            // Agrego botones Modificar y Eliminar
-            const tdModificar = document.createElement("td");
-            tdModificar.setAttribute("id", "tdModificar");
-    
-            const tdEliminar = document.createElement("td");
-            tdEliminar.setAttribute("id", "tdEliminar");
-    
-            const btnModificar = document.createElement("button");
-            btnModificar.textContent = "Modificar";
-            btnModificar.setAttribute("id", "btnModificar");
-            btnModificar.setAttribute("data-id", elemento.id);
-    
-            const btnEliminar = document.createElement("button");
-            btnEliminar.textContent = "Eliminar";
-            btnEliminar.setAttribute("id", "btnEliminar");
-            btnEliminar.setAttribute("data-id", elemento.id);
-    
-            tdModificar.appendChild(btnModificar);
-            tdEliminar.appendChild(btnEliminar);
-    
-            tr.appendChild(tdModificar);
-            tr.appendChild(tdEliminar);
-    
-            tbody.append(tr);
+        if (index % 2 === 0) {
+            tr.classList.add("filaPar"); 
         }
+
+        for (const columna of columnas) {
+            const td = document.createElement("td");
+            const valor = elemento[columna] || "N/A";
+
+            if (columna === "id") {
+                tr.setAttribute("data-id", valor);
+                if (valor === '666' || valor === 666) {
+                    tr.classList.add('idProhibida'); // Si el ID es 666, pinto de rojo la fila
+                }
+            }
+
+            td.textContent = valor;
+            tr.appendChild(td);
+        }
+
+        // Agrego botones Modificar y Eliminar
+        const tdModificar = document.createElement("td");
+        tdModificar.setAttribute("id", "tdModificar");
+
+        const tdEliminar = document.createElement("td");
+        tdEliminar.setAttribute("id", "tdEliminar");
+
+        const btnModificar = document.createElement("button");
+        btnModificar.textContent = "Modificar";
+        btnModificar.setAttribute("id", "btnModificar");
+        btnModificar.setAttribute("data-id", elemento.id);
+
+        const btnEliminar = document.createElement("button");
+        btnEliminar.textContent = "Eliminar";
+        btnEliminar.setAttribute("id", "btnEliminar");
+        btnEliminar.setAttribute("data-id", elemento.id);
+
+        tdModificar.appendChild(btnModificar);
+        tdEliminar.appendChild(btnEliminar);
+
+        tr.appendChild(tdModificar);
+        tr.appendChild(tdEliminar);
+
+        tbody.append(tr);
     });
 
   return tbody;

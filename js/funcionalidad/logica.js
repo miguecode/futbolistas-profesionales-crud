@@ -240,12 +240,16 @@ window.addEventListener("click", (e) => {
         const personaSeleccionada = listaGlobal.find((p) => p.id == id);
         console.log(personaSeleccionada);
 
-        intercambiarFormularios();
-        cargarFormABM(personaSeleccionada, true);
-
-        $inputSubmit.value = "Aceptar";
-        $tituloABM.textContent = "Modificación";
-        $tituloABM.style.backgroundColor = "rgb(209, 151, 43)";
+        if (id !== 666 && id !== '666') {
+            intercambiarFormularios();
+            cargarFormABM(personaSeleccionada, true);
+    
+            $inputSubmit.value = "Aceptar";
+            $tituloABM.textContent = "Modificación";
+            $tituloABM.style.backgroundColor = "rgb(209, 151, 43)";
+        } else {
+            alert('No se puede modificar un elemento con ID 666');
+        }
     } else if (e.target.matches("#btnEliminar")) {
         const id = e.target.getAttribute("data-id");
         console.log(`Eliminar ${id}`);
@@ -253,12 +257,16 @@ window.addEventListener("click", (e) => {
         const personaSeleccionada = listaGlobal.find((p) => p.id == id);
         console.log(personaSeleccionada);
 
-        intercambiarFormularios();
-        cargarFormABM(personaSeleccionada, false);
-
-        $inputSubmit.value = "Aceptar";
-        $tituloABM.textContent = "Eliminación";
-        $tituloABM.style.backgroundColor = "rgb(185, 71, 43)";
+        if (id !== 666 && id !== '666') {
+            intercambiarFormularios();
+            cargarFormABM(personaSeleccionada, false);
+    
+            $inputSubmit.value = "Aceptar";
+            $tituloABM.textContent = "Eliminación";
+            $tituloABM.style.backgroundColor = "rgb(185, 71, 43)";
+        } else {
+            alert('No se puede eliminar un elemento con ID 666');
+        }
     }
 });
 
