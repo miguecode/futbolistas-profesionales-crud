@@ -84,8 +84,6 @@ const getPersonas = () => {
         };
     });
 };
-
-
 // GET (Todas las personas) - FETCH ////////////////////////////////////////////////////////////////////////
 /*const getPersonas = () =>{
     mostrarLoader();
@@ -567,28 +565,3 @@ const deletePersona = (id) =>{
         };
     });
 };
-
-// DELETE (Baja persona) - FETCH ///////////////////////////////////////////////////////////
-/*const deletePersona = (id) =>{
-    mostrarLoader();
-
-    fetch(URL, {
-        method: "Delete",
-        headers: { "Content-Type": "application/json;charset=utf-8" },
-        body: JSON.stringify(id)
-    }) //Envío la petición (Le paso un destino y un objeto Options)
-    .then((res) => {
-        if (!res.ok) return Promise.reject(res); //Si no salió bien la petición, retorno la promesa como incumplida
-        console.log("La eliminación se realizó correctamente");
-        actualizarTabla($divTablaContenedor, listaGlobal);
-    })
-    .catch((err)=>{
-        console.log(err);
-        console.error(`Error: ${err.status} - ${err.statusText}`); 
-        alert(`Error: ${err.status} - ${err.statusText}`); 
-    })
-    .finally(() =>{
-        ocultarLoader();
-        mostrarSeccionDatos();
-    });
-}*/
