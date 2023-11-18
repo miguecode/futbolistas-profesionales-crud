@@ -199,10 +199,10 @@ input[type="submit"]:hover {
 #tipo {
     margin-bottom: 6px;
 }
-#inputEmpleados {
+#inputFutbolistas {
     margin: 0px 0px 0px 0px;
 }
-#inputClientes {
+#inputProfesionales {
     margin: 0px 0px 0px 0px;
     display: none;
 }

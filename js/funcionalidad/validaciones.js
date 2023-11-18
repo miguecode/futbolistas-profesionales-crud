@@ -16,7 +16,7 @@ function validarNumero(valor, valorMinimo, valorMaximo) {
     return typeof valor === "number" && valor >= valorMinimo && valor <= valorMaximo;
 }
 
-export function validarEntidad(v1, v2, v3, v4, v5, v6, v7, tipo) {
+export function validarEntidad(v1, v2, v3, v4, v5, v6, v7, v8, v9, tipo) {
     const errores = [];
 
     // v1 es Nombre
@@ -26,20 +26,26 @@ export function validarEntidad(v1, v2, v3, v4, v5, v6, v7, tipo) {
     if (!validarCadena(v2, 20)) errores.push("Apellido");
 
     // v3 es Edad
-    if (!validarNumero(v3, 18, 200)) errores.push("Edad");
+    if (!validarNumero(v3, 15, 300)) errores.push("Edad");
 
-    if(tipo === "Empleados") {
-        // v4 es Ventas
-        if (!validarNumero(v4, 0, 9999999)) errores.push("Ventas");
+    if (tipo === "Futbolistas") {
+        // v4 es Equipo
+        if (!validarCadena(v4, 40)) errores.push("Equipo");
 
-        // v5 es Sueldo
-        if (!validarNumero(v5, 1, 9999999)) errores.push("Sueldo");
+        // v5 es Posicion
+        if (!validarCadena(v5, 20)) errores.push("Posicion");
+
+        // v6 es Goles
+        if (!validarNumero(v6, 0, 9999999)) errores.push("Goles");
     } else {
-        // v6 es Compras
-        if (!validarNumero(v6, 0, 99999)) errores.push("Compras");
+        // v7 es Titulo
+        if (!validarCadena(v7, 40)) errores.push("Titulo");
 
-        // v7 es Telefono
-        if (!validarNumero(v7, 1000000, 9999999999)) errores.push("Telefono");
+        // v8 es Facultad
+        if (!validarCadena(v8, 40)) errores.push("Facultad");
+
+        // v9 es Graduacion
+        if (!validarNumero(v9, 1950, 30000)) errores.push("Graduacion");
     }
 
     if (errores.length > 0) {
@@ -49,18 +55,3 @@ export function validarEntidad(v1, v2, v3, v4, v5, v6, v7, tipo) {
 
     return true;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

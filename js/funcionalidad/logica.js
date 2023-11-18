@@ -1,9 +1,9 @@
 import { actualizarTabla } from "./tabla.js";
-import { Empleado } from "../clases/empleado.js"
-import { Cliente } from "../clases/cliente.js"
+import { Futbolista } from "../clases/futbolista.js"
+import { Profesional } from "../clases/profesional.js"
 import { validarEntidad } from "./validaciones.js";
 
-const URL = "http://localhost/PersonasEmpleadosClientes.php";
+const URL = "http://localhost/personasFutbolitasProfesionales.php";
 
 const $seccionDatos = document.getElementById("seccion-datos");
 const $loader = document.getElementById("loader");
@@ -27,10 +27,10 @@ let listaGlobal = [];
 
 function convertirLista() {
     listaGlobal = listaGlobal.map(p => {
-        if ("sueldo" in p) {
-            return new Empleado(p["id"], p["nombre"], p["apellido"], p["edad"], p["sueldo"], p["ventas"]);
+        if ("equipo" in p) {
+            return new Futbolista(p["id"], p["nombre"], p["apellido"], p["edad"], p["equipo"], p["posicion"], p["cantidadGoles"]);
         } else {
-            return new Cliente(p["id"], p["nombre"], p["apellido"], p["edad"], p["compras"], p["telefono"]);
+            return new Profesional(p["id"], p["nombre"], p["apellido"], p["edad"], p["titulo"], p["facultad"], p["añoGraduacion"]);
         }
     });
 
@@ -66,7 +66,7 @@ const getPersonas = () => {
                 //Guardo lo que recibimos de la API en nuestra listaGlobal
 
                 convertirLista();
-                //Convierto los elementos de la listaGlobal en Empleados/Clientes
+                //Convierto los elementos de la listaGlobal en Futbolistas/Profesionales
 
                 actualizarTabla($divTablaContenedor, data);
                 //Actualizo la tabla con lo que acabamos de traer
@@ -75,7 +75,7 @@ const getPersonas = () => {
                 console.error(`Error: ${xhr.status} - ${xhr.statusText}`);
                 //El console.error es como el log pero sale en rojo
 
-                alert(`Error: ${xhr.status} - ${xhr.statusText}`);
+                alert(`Ocurrio un error con la conexion al Servidor: ${xhr.status} - ${xhr.statusText}`);
             }
 
             ocultarLoader();
@@ -84,42 +84,6 @@ const getPersonas = () => {
         };
     });
 };
-// GET (Todas las personas) - FETCH ////////////////////////////////////////////////////////////////////////
-/*const getPersonas = () =>{
-    mostrarLoader();
-    //Muestro el loader (la imágen .gif)
-
-    fetch(URL) //Envío la petición (por default GET)
-    .then((res) => {  //'res' es Response (respuesta en este caso atrapada por el then)
-        return res.ok? res.json() : Promise.reject(res);
-        //Este operador ternario resume lo que comentamos abajo
-        //Si res.ok es true, ejecutará 'res.json()', y sino, ejecuta 'Promise.reject(res)'
-    })
-    .then((data) => {
-        //Si el resultado es exitoso...
-
-        listaGlobal = data;
-        //Guardo lo que recibimos de la API en nuestra listaGlobal
-
-        convertirLista();
-        //Convierto los elementos de la listaGlobal en Empleados/Clientes
-
-        actualizarTabla($divTablaContenedor, data);
-        //Actualizo la tabla con lo que acabamos de traer
-    })
-    .catch((err)=>{
-        //Si el resultado no es exitoso...
-        console.error(`Error: ${err.status} - ${err.statusText}`); 
-        //El console.error es como el log pero sale en rojo
-
-        alert(`Error: ${err.status} - ${err.statusText}`);
-    })
-    .finally(() =>{
-        ocultarLoader();
-        //Sea exitosa o no la respuesta, oculto el loader
-    });
-}*/
-
 
 /////   INICIO - LISTAR TODO   ///////////////////////////////////////////////////////////////////////
 getPersonas();
@@ -129,7 +93,6 @@ const $tituloABM = document.getElementById("tituloABM");
 
 /////   SWITCHEAR FORMULARIOS   ///////////////////////////////////////////////////////////////////////
 const $seccionABM = document.getElementById("seccion-ABM");
-//$seccionDatos.style.setProperty("display", "flex");
 $seccionABM.style.setProperty("display", "none");
 
 const $formABM = document.getElementById("form-ABM");
@@ -178,10 +141,12 @@ function intercambiarFormularios(loaderActivo = false) {
             txtApellido.removeAttribute("disabled");
             numEdad.removeAttribute("disabled");
 
-            numSueldo.removeAttribute("disabled");
-            numVentas.removeAttribute("disabled");
-            numCompras.removeAttribute("disabled");
-            numTelefono.removeAttribute("disabled");
+            txtEquipo.removeAttribute("disabled");
+            txtPosicion.removeAttribute("disabled");
+            numCantidadGoles.removeAttribute("disabled");
+            txtTitulo.removeAttribute("disabled");
+            txtFacultad.removeAttribute("disabled");
+            numAñoGraduacion.removeAttribute("disabled");
         } else {
             $seccionABM.style.setProperty("display", "none");
             $seccionDatos.style.setProperty("display", "flex");
@@ -196,39 +161,39 @@ function intercambiarFormularios(loaderActivo = false) {
 }
 
 /////   SWITCHEAR INPUTS EN ABM   //////////////////////////////////////////////////////////////////
-const $inputsEmpleado = document.getElementById("inputEmpleados");
-const $inputsCliente = document.getElementById("inputClientes");
+const $inputsFutbolista = document.getElementById("inputFutbolistas");
+const $inputsProfesional = document.getElementById("inputProfesionales");
 
 $selectTipo.addEventListener("change", () => {
     intercambiarInputs();
 });
 
 function intercambiarInputs() {
-    if ($selectTipo.value === "Empleados") {
-        $inputsCliente.style.setProperty("display", "none");
-        $inputsEmpleado.style.setProperty("display", "block");
+    if ($selectTipo.value === "Futbolistas") {
+        $inputsProfesional.style.setProperty("display", "none");
+        $inputsFutbolista.style.setProperty("display", "block");
 
-        document.querySelectorAll("#inputEmpleados input").forEach((input) => {
+        document.querySelectorAll("#inputFutbolistas input").forEach((input) => {
             input.setAttribute("required", "true");
         });
-        document.querySelectorAll("#inputClientes input").forEach((input) => {
+        document.querySelectorAll("#inputProfesionales input").forEach((input) => {
             input.removeAttribute("required");
         });
     } else {
-        $inputsEmpleado.style.setProperty("display", "none");
-        $inputsCliente.style.setProperty("display", "block");
+        $inputsFutbolista.style.setProperty("display", "none");
+        $inputsProfesional.style.setProperty("display", "block");
 
-        document.querySelectorAll("#inputClientes input").forEach((input) => {
+        document.querySelectorAll("#inputProfesionales input").forEach((input) => {
             input.setAttribute("required", "true");
         });
-        document.querySelectorAll("#inputEmpleados input").forEach((input) => {
+        document.querySelectorAll("#inputFutbolistas input").forEach((input) => {
             input.removeAttribute("required");
         });
     }
 }
 
 const { txtId, txtNombre, txtApellido, numEdad,
-    numVentas, numSueldo, numCompras, numTelefono} = $formABM;
+    txtEquipo, txtPosicion, numCantidadGoles, txtTitulo, txtFacultad, numAñoGraduacion} = $formABM;
 
 window.addEventListener("click", (e) => {
     if (e.target.matches("#btnModificar")) {
@@ -238,16 +203,12 @@ window.addEventListener("click", (e) => {
         const personaSeleccionada = listaGlobal.find((p) => p.id == id);
         console.log(personaSeleccionada);
 
-        if (id !== 666 && id !== '666') {
-            intercambiarFormularios();
-            cargarFormABM(personaSeleccionada, true);
-    
-            $inputSubmit.value = "Aceptar";
-            $tituloABM.textContent = "Modificación";
-            $tituloABM.style.backgroundColor = "rgb(209, 151, 43)";
-        } else {
-            alert('No se puede modificar un elemento con ID 666');
-        }
+        intercambiarFormularios();
+        cargarFormABM(personaSeleccionada, true);
+
+        $inputSubmit.value = "Aceptar";
+        $tituloABM.textContent = "Modificación";
+        $tituloABM.style.backgroundColor = "rgb(209, 151, 43)";
     } else if (e.target.matches("#btnEliminar")) {
         const id = e.target.getAttribute("data-id");
         console.log(`Eliminar ${id}`);
@@ -255,16 +216,12 @@ window.addEventListener("click", (e) => {
         const personaSeleccionada = listaGlobal.find((p) => p.id == id);
         console.log(personaSeleccionada);
 
-        if (id !== 666 && id !== '666') {
-            intercambiarFormularios();
-            cargarFormABM(personaSeleccionada, false);
-    
-            $inputSubmit.value = "Aceptar";
-            $tituloABM.textContent = "Eliminación";
-            $tituloABM.style.backgroundColor = "rgb(185, 71, 43)";
-        } else {
-            alert('No se puede eliminar un elemento con ID 666');
-        }
+        intercambiarFormularios();
+        cargarFormABM(personaSeleccionada, false);
+
+        $inputSubmit.value = "Aceptar";
+        $tituloABM.textContent = "Eliminación";
+        $tituloABM.style.backgroundColor = "rgb(185, 71, 43)";
     }
 });
 
@@ -282,20 +239,22 @@ function cargarFormABM(persona, esModificacion) {
     $labelId.style.setProperty("display", "block"); //Que se muestre el ID
     $inputId.style.setProperty("display", "block"); //Que el ID no se pueda modificar
 
-    if ("sueldo" in persona) {
-        numSueldo.value = persona.sueldo;
-        numVentas.value = persona.ventas;
-        $selectTipo.value = "Empleados"; //Pongo el filtro en 'Empleados'
+    if ("equipo" in persona) {
+        txtEquipo.value = persona.equipo;
+        txtPosicion.value = persona.posicion;
+        numCantidadGoles.value = persona.cantidadGoles;
+        $selectTipo.value = "Futbolistas"; //Pongo el filtro en 'Futbolistas'
 
-        $inputsCliente.style.setProperty("display", "none"); //Oculto las input 'Cliente'
-        $inputsEmpleado.style.setProperty("display", "block"); //Muestro las input 'Empleado'
+        $inputsProfesional.style.setProperty("display", "none"); //Oculto las input 'Profesional'
+        $inputsFutbolista.style.setProperty("display", "block"); //Muestro las input 'Futbolista'
     } else {
-        numCompras.value = persona.compras;
-        numTelefono.value = persona.telefono;
-        $selectTipo.value = "Clientes"; //Pongo el filtro en 'Clientes'
+        txtTitulo.value = persona.titulo;
+        txtFacultad.value = persona.facultad;
+        numAñoGraduacion.value = persona.añoGraduacion;
+        $selectTipo.value = "Profesionales"; //Pongo el filtro en 'Profesionales'
 
-        $inputsEmpleado.style.setProperty("display", "none"); //Oculto las input 'Empleado'
-        $inputsCliente.style.setProperty("display", "block"); //Muestro las input 'Cliente'
+        $inputsFutbolista.style.setProperty("display", "none"); //Oculto las input 'Futbolista'
+        $inputsProfesional.style.setProperty("display", "block"); //Muestro las input 'Profesional'
     }
 
     if (!esModificacion) { //Si es un menú de Baja, no se puede modificar ningun campo
@@ -303,13 +262,15 @@ function cargarFormABM(persona, esModificacion) {
         txtApellido.setAttribute("disabled", "true");
         numEdad.setAttribute("disabled", "true");
 
-        numSueldo.setAttribute("disabled", "true");
-        numVentas.setAttribute("disabled", "true");
-        numCompras.setAttribute("disabled", "true");
-        numTelefono.setAttribute("disabled", "true");
+        txtEquipo.setAttribute("disabled", "true");
+        txtPosicion.setAttribute("disabled", "true");
+        numCantidadGoles.setAttribute("disabled", "true");
+        
+        txtTitulo.setAttribute("disabled", "true");
+        txtFacultad.setAttribute("disabled", "true");
+        numAñoGraduacion.setAttribute("disabled", "true");
     }
 }
-
 
 /////   BOTÓN SUBMIT (ALTA O MODIFICACIÓN)   ///////////////////////////////////////////////////////////
 $formABM.addEventListener("submit", (e) => {
@@ -318,72 +279,67 @@ $formABM.addEventListener("submit", (e) => {
 
 /////   VALIDACIÓN (TRY-CATCH)   ///////////////////////////////////////////////////////////////////////
     try {
-        validarEntidad(txtNombre.value, txtApellido.value, parseInt(numEdad.value), 
-            parseInt(numVentas.value), parseInt(numSueldo.value), parseInt(numCompras.value), 
-            parseInt(numTelefono.value), $selectTipo.value)
+         validarEntidad(txtNombre.value, txtApellido.value, parseInt(numEdad.value), 
+            txtEquipo.value, txtPosicion.value, parseInt(numCantidadGoles.value), 
+            txtTitulo.value, txtFacultad.value, parseInt(numAñoGraduacion.value), $selectTipo.value)
 
         if (txtId.value === "") { //Si no hay valor de ID, es una persona nueva (ALTA)
             console.log("persona nueva");
-
-            if ($selectTipo.value === "Empleados") {
-                const empleadoNuevo = new Empleado(
+            if ($selectTipo.value === "Futbolistas") {
+                const futbolistaNuevo = new Futbolista(
                     'N/A', //Primero le hardcodeamos un 'N/A' al ID, ya que de eso se encarga el Servidor
                     txtNombre.value,
                     txtApellido.value,
                     parseInt(numEdad.value),
-                    parseInt(numSueldo.value),
-                    parseInt(numVentas.value)
+                    txtEquipo.value,
+                    txtPosicion.value,
+                    parseInt(numCantidadGoles.value)
                 )
     
-                createPersona(empleadoNuevo);
+                createPersona(futbolistaNuevo);
             } else {
-                const clienteNuevo = new Cliente(
+                const profesionalNuevo = new Profesional(
                     'N/A',
                     txtNombre.value,
                     txtApellido.value,
                     parseInt(numEdad.value),
-                    parseInt(numCompras.value),
-                    parseInt(numTelefono.value)
+                    txtTitulo.value,
+                    txtFacultad.value,
+                    parseInt(numAñoGraduacion.value)
                 )
 
-                createPersona(clienteNuevo);
+                createPersona(profesionalNuevo);
             }
         }  else if ($tituloABM.textContent === "Modificación") { //Si hay valor de ID, es una modificación
             console.log("Persona existente");
     
-            if ($selectTipo.value === "Empleados") {
-                const empleadoNuevo = new Empleado(
+            if ($selectTipo.value === "Futbolistas") {
+                const futbolistaNuevo = new Futbolista(
                     txtId.value,
                     txtNombre.value,
                     txtApellido.value,
                     parseInt(numEdad.value),
-                    parseInt(numSueldo.value),
-                    parseInt(numVentas.value)
+                    txtEquipo.value,
+                    txtPosicion.value,
+                    parseInt(numCantidadGoles.value)
                 )
-    
-                let index = listaGlobal.findIndex((p) => p.id == empleadoNuevo.id);
-                listaGlobal.splice(index, 1, empleadoNuevo);
 
-                updatePersona(empleadoNuevo);
+                updatePersona(futbolistaNuevo);
             } else {
-                const clienteNuevo = new Cliente(
+                const profesionalNuevo = new Profesional(
                     txtId.value,
                     txtNombre.value,
                     txtApellido.value,
                     parseInt(numEdad.value),
-                    parseInt(numCompras.value),
-                    parseInt(numTelefono.value)
+                    txtTitulo.value,
+                    txtFacultad.value,
+                    parseInt(numAñoGraduacion.value)
                 )
 
-                let index = listaGlobal.findIndex((p) => p.id == clienteNuevo.id);
-                listaGlobal.splice(index, 1, clienteNuevo);
-
-                updatePersona(clienteNuevo);
+                updatePersona(profesionalNuevo);
             }
         } else { //Si no es Alta ni Modificación, es Baja
             deletePersona(txtId.value);
-            let index = listaGlobal.findIndex((p) => p.id == txtId.value);
-            listaGlobal.splice(index, 1);
         }
 
         intercambiarFormularios(true);
@@ -392,142 +348,23 @@ $formABM.addEventListener("submit", (e) => {
     }
 });
 
-
-
-// PUT (Alta persona) - AJAX ///////////////////////////////////////////////////////////
-/*const createPersona = (persona) =>{
-    mostrarLoader();
-    
-    const xhr = new XMLHttpRequest();
-
-    xhr.open("PUT", URL);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=utf-8");
-    //El verbo va a ser PUT en vez de GET
-    //El 'setRequestHeader' significa que vamos a setear las cabezeras. Le decimos al server de qué tipo va a ser lo que le estamos mandando.
-
-    xhr.send(JSON.stringify(persona));
-    //Al enviar, tenemos que especificar qué estamos enviando. Por eso, le pasamos un string JSON de la data. Y la data obviamente es lo que hardcodeamos antes (la persona Juan Perez)
-
-    xhr.addEventListener("readystatechange", () =>{
-        if(xhr.readyState == 4){
-            if (xhr.status >= 200 && xhr.status <= 299){
-                const data = JSON.parse(xhr.responseText); //La data recibida va a ser un objeto {id: random}
-                persona.id = data.id; //A la persona creada, le asignamos el id que nos devolvió el Servidor
-
-                listaGlobal.push(persona); //Agregamos a la persona a la lista en memoria
-
-                actualizarTabla($divTablaContenedor, listaGlobal);
-
-                console.log("Funcionó el alta de la persona");
-            }else{
-                console.error(`Error: ${xhr.status} - ${xhr.statusText}`);
-                alert(`Error: ${xhr.status} - ${xhr.statusText}`);
-            }
-
-            ocultarLoader();
-            mostrarSeccionDatos();
-        };
-    });
-};*/
-
-// PUT (Alta persona) - FETCH ///////////////////////////////////////////////////////////
-const createPersona = (persona) =>{
-    mostrarLoader();
-
-    fetch(URL, {
-        method: "Put",
-        headers: { "Content-Type": "application/json;charset=utf-8" }, //headers es ese objeto
-        body: JSON.stringify(persona)
-    }) //Envío la petición (Le paso un destino y un objeto Options)
-    .then((res) => {  
-        return res.ok? res.json() : Promise.reject(res);
-    })
-    .then((data) => {
-        persona.id = data.id; //A la persona creada, le asignamos el id que nos devolvió el Servidor
-
-        listaGlobal.push(persona); //Agregamos a la persona a la lista en memoria
-
-        actualizarTabla($divTablaContenedor, listaGlobal);
-
-        console.log("Funcionó el alta de la persona");
-    })
-    .catch((err)=>{
-        console.error(`Error: ${err.status} - ${err.statusText}`); 
-        alert(`Error: ${err.status} - ${err.statusText}`); 
-    })
-    .finally(() =>{
-        ocultarLoader();
-        mostrarSeccionDatos();
-    });
-}
-
-// UPDATE (Modificar persona) - AJAX ///////////////////////////////////////////////////////////
-/*const updatePersona = (persona) =>{
-    mostrarLoader();
-
-    const xhr = new XMLHttpRequest();
-
-    xhr.open("POST", URL + "/" + persona.id); //Le pasamos como ID, el ID de la persona
-    xhr.setRequestHeader("Content-Type", "application/json;charset=utf-8");
-
-    xhr.send(JSON.stringify(persona));
-
-    xhr.addEventListener("readystatechange", () =>{
-        if(xhr.readyState == 4){
-            if (xhr.status >= 200 && xhr.status <= 299){
-                console.log("La modificación se realizó correctamente");
-                actualizarTabla($divTablaContenedor, listaGlobal);
-            }else{
-                console.error(`Error: ${xhr.status} - ${xhr.statusText}`);
-                alert(`Error: ${xhr.status} - ${xhr.statusText}`);
-            }
-
-            ocultarLoader();
-            mostrarSeccionDatos();
-        };
-    });
-};*/
-
-// UPDATE (Modificar persona) - FETCH ///////////////////////////////////////////////////////////
-/*const updatePersona = (persona) =>{
-    mostrarLoader();
-
-    fetch(URL + "/" + persona.id, {
-        method: "Post",
-        headers: { "Content-Type": "application/json;charset=utf-8" }, //headers es ese objeto
-        body: JSON.stringify(persona)
-    }) //Envío la petición (Le paso un destino y un objeto Options)
-    .then((res) => {  
-        return res.ok? res : Promise.reject(res); //El 'res' lo dejó así, en vez de 'res.json()'
-    })
-    .then(() => {
-        console.log("La modificación se realizó correctamente");
-        actualizarTabla($divTablaContenedor, listaGlobal);
-    })
-    .catch((err) => {
-        console.error(err);
-        console.error(`Error: ${err.status} - ${err.statusText}`); 
-        alert(`Error: ${err.status} - ${err.statusText}`); 
-    })
-    .finally(() =>{
-        ocultarLoader();
-        mostrarSeccionDatos();
-    });
-}*/
-
-// UPDATE (Modificar persona) - FETCH ASYNC ///////////////////////////////////////////////////////////
-const updatePersona = async (persona) =>{
+// PUT (Alta persona) - FETCH ASYNC ///////////////////////////////////////////////////////////
+const createPersona = async (persona) => {
     try {
         mostrarLoader();
 
-        await fetch(URL + "/" + persona.id, {
-            method: "Put",
+        const data = await fetch(URL, {
+            method: "PUT",
             headers: { "Content-Type": "application/json;charset=utf-8" },
             body: JSON.stringify(persona)
         });
 
-        console.log("La modificación se realizó correctamente");
+        const dataRecibida = await data.json();
+
+        persona.id = dataRecibida.id;
+        listaGlobal.push(persona);
         actualizarTabla($divTablaContenedor, listaGlobal);
+        console.log("Funcionó el alta de la persona");
     } catch (err) {
         console.log(err);
         console.error(`Error: ${err.status} - ${err.statusText}`);
@@ -536,6 +373,41 @@ const updatePersona = async (persona) =>{
         ocultarLoader();
         mostrarSeccionDatos();
     }
+}
+
+// UPDATE (Modificar persona) - FETCH ///////////////////////////////////////////////////////////
+const updatePersona = (persona) =>{
+    mostrarLoader();
+
+    fetch(URL + "/" + persona.id, {
+        method: "POST",
+        headers: { "Content-Type": "application/json;charset=utf-8" }, 
+        body: JSON.stringify(persona)
+    })
+    .then((res) => {  
+        if (!res.ok) {
+            return res.text().then((text) => Promise.reject({ status: res.status, statusText: text }));
+        }
+    })
+    .then(() => {
+        let index = listaGlobal.findIndex((p) => p.id == persona.id);
+        listaGlobal.splice(index, 1, persona);
+
+        console.log("La modificación se realizó correctamente");
+        actualizarTabla($divTablaContenedor, listaGlobal);
+    })
+    .catch((err) => {
+        if (persona.id == 666) {
+            const error = err.statusText;
+            alert(error);
+        } else {
+            alert(`Error: ${err.status} - ${err.statusText}`);
+        }
+    })
+    .finally(() =>{
+        ocultarLoader();
+        mostrarSeccionDatos();
+    });
 }
 
 // DELETE (Baja persona) - AJAX ///////////////////////////////////////////////////////////
@@ -554,10 +426,18 @@ const deletePersona = (id) =>{
         if(xhr.readyState == 4){
             if (xhr.status >= 200 && xhr.status <= 299){
                 console.log("La eliminación se realizó correctamente");
+
+                let index = listaGlobal.findIndex((p) => p.id == id);
+                listaGlobal.splice(index, 1);
+
                 actualizarTabla($divTablaContenedor, listaGlobal);
-            }else{
-                console.error(`Error: ${xhr.status} - ${xhr.statusText}`);
-                alert(`Error: ${xhr.status} - ${xhr.statusText}`);
+            } else {
+                if (id == 666) {
+                    const error = xhr.responseText;
+                    alert(error);
+                } else {
+                    alert(`Error: ${xhr.status} - ${xhr.statusText}`);
+                }
             }
 
             ocultarLoader();

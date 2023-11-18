@@ -53,69 +53,71 @@
               type="number"
               name="numEdad"
               id="edad"
-              min="18"
-              max="65"
-              value="18"
+              min="15"
+              max="300"
+              value="15"
               required
             />
           </div>
 
           <!-- ----------------------------------------------------------------------------------- -->
 
-          <!-- EJEMPLO INPUT TEXTO -->
-          <!-- <label for="nombre">Nombre</label>
-          <input
-            type="text"
-            name="txtNombre"
-            id="nombre"
-            autocomplete="off"
-            required
-          /> -->
-
           <div class="linea">
             <div id="selectTipo">
               <label for="tipo">Tipo:</label>
               <select name="selTipo" id="tipo">
-                <option value="Empleados">Empleados</option>
-                <option value="Clientes">Clientes</option>
+                <option value="Futbolistas">Futbolistas</option>
+                <option value="Profesionales">Profesionales</option>
               </select>
             </div>
 
-            <div id="inputEmpleados" class="linea">
-              <label for="ventas">Ventas</label>
+            <div id="inputFutbolistas" class="linea">
+              <label for="equipo">Equipo</label>
               <input
-                type="number"
-                name="numVentas"
-                id="ventas"
-                min="1"
-                value="1"
+                type="text"
+                name="txtEquipo"
+                id="equipo"
+                autocomplete="off"
               />
-              <label for="sueldo">Sueldo</label>
+              <label for="posicion">Posicion</label>
+              <input
+                type="text"
+                name="txtPosicion"
+                id="posicion"
+                autocomplete="off"
+              />
+              <label for="cantidadGoles">Goles</label>
               <input
                 type="number"
-                name="numSueldo"
-                id="sueldo"
-                min="1"
-                value="50000"
+                name="numCantidadGoles"
+                id="cantidadGoles"
+                min="0"
+                value="1"
               />
             </div>
 
-            <div id="inputClientes" class="linea">
-              <label for="compras">Compras</label>
+            <div id="inputProfesionales" class="linea">
+              <label for="titulo">Titulo</label>
               <input
-                type="number"
-                name="numCompras"
-                id="compras"
-                min="1"
-                value="1"
+                type="text"
+                name="txtTitulo"
+                id="titulo"
+                autocomplete="off"
               />
-              <label for="telefono">Telefono</label>
+              <label for="facultad">Facultad</label>
+              <input
+                type="text"
+                name="txtFacultad"
+                id="facultad"
+                autocomplete="off"
+              />
+              <label for="añoGraduacion">Graduacion</label>
               <input
                 type="number"
-                name="numTelefono"
-                id="telefono"
-                min="1000000"
-                value=""
+                name="numAñoGraduacion"
+                id="añoGraduacion"
+                min="1950"
+                value="1950"
               />
             </div>
           </div>

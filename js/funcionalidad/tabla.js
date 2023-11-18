@@ -5,7 +5,7 @@ export function crearTabla(listaDeElementos) {
     tabla.setAttribute("id", "tabla");
 
     let columnas = ["id", "nombre", "apellido", "edad",
-    "sueldo", "ventas", "compras", "telefono"];
+    "equipo", "posicion", "cantidadGoles", "titulo", "facultad", "añoGraduacion"];
 
     tabla.appendChild(crearEncabezado(columnas));
 
@@ -24,7 +24,6 @@ const crearEncabezado = (columnas) => {
         trEncabezado.appendChild(th);
     }
 
-    // Agrego columnas Modificar y Eliminar
     const thModificar = document.createElement("th");
     thModificar.textContent = 'Modificar';
 
@@ -45,8 +44,6 @@ const crearCuerpo = (listaDeElementos, columnas) => {
     const tbody = document.createElement("tbody");
 
     listaDeElementos.forEach((elemento, index) => {
-        // Si habilito este if, evitaria que la tabla cree una fila con ID '666'
-        //if (elemento.id !== 666 && elemento.id !== '666') {  }
         const tr = document.createElement("tr");
 
         if (index % 2 === 0) {
@@ -55,12 +52,16 @@ const crearCuerpo = (listaDeElementos, columnas) => {
 
         for (const columna of columnas) {
             const td = document.createElement("td");
-            const valor = elemento[columna] || "N/A";
+            let valor = elemento[columna] || "N/A";
+
+            if (elemento[columna] == '0') {
+                valor = 0;
+            }
 
             if (columna === "id") {
                 tr.setAttribute("data-id", valor);
                 if (valor === '666' || valor === 666) {
-                    tr.classList.add('idProhibida'); // Si el ID es 666, pinto de rojo la fila
+                    td.classList.add('idProhibida');
                 }
             }
 
@@ -68,7 +69,6 @@ const crearCuerpo = (listaDeElementos, columnas) => {
             tr.appendChild(td);
         }
 
-        // Agrego botones Modificar y Eliminar
         const tdModificar = document.createElement("td");
         tdModificar.setAttribute("id", "tdModificar");
 
