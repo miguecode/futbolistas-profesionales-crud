@@ -51,6 +51,8 @@ const getPersonas = () => {
     xhr.send();
     //Enviamos la petición. Recordemos que 'xhr' es el objeto petición
 
+    let ocurrioError = false;
+
     xhr.addEventListener("readystatechange", () =>{   //A la petición le agrego un evento 'readystatechange'
         console.log("Acaba de cambiar el estado de la petición");
 
@@ -75,11 +77,12 @@ const getPersonas = () => {
                 console.error(`Error: ${xhr.status} - ${xhr.statusText}`);
                 //El console.error es como el log pero sale en rojo
 
-                alert(`Ocurrio un error con la conexion al Servidor: ${xhr.status} - ${xhr.statusText}`);
+                alert(`Ocurrio un error con la conexion al Servidor`);
+                ocurrioError = true;
             }
 
             ocultarLoader();
-            mostrarSeccionDatos();
+            if (!ocurrioError) mostrarSeccionDatos();
             //Sea exitosa o no la respuesta, oculto el loader
         };
     });
