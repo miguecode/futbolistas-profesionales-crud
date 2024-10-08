@@ -42,7 +42,7 @@ Hasta este punto, ingresar a la página es fácil. Pero como este proyecto se ba
 
 ## 📌 Aclaraciones
 - La idea del Servidor en este proyecto es la simulación del envío de petición y la recepción de la respuesta. Realmente no estamos guardando los datos en ninguna base de datos. Al reiniciar la página, todo vuelve a su estado base predeterminado, el cual nace del array que está en el archivo .php.
-- Cada vez que hacemos una petición al servidor, ya sea pedirle los datos (al iniciar), hacer un alta, una baja o una modificación, la aplicación muestra un loader durante 3 segundos, el cual es el tiempo establecido en esta línea del archivo .php: `sleep(3);`.
+- Cada vez que hacemos una petición al servidor, ya sea pedirle los datos (al iniciar), hacer un alta, una baja o una modificación, la aplicación muestra un loader durante 3 segundos, el cual es el tiempo establecido en la línea  `sleep(3);` del archivo .php.
 - En este proyecto, el verbo 'POST' se encarga de hacer modificaciones, y el 'PUT' se encarga de hacer altas.
 - El elemento con ID '666' no se puede tocar. Al intentar modificarlo o eliminarlo, el Servidor va a devolver un error. Esto está hecho apropósito.
 - Fue creado en 2023, mientras cursaba la carrera de Tecnicatura Universitaria en Programación, en la Universidad Tecnológica Nacional.
