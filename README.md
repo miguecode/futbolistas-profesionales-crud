@@ -1,4 +1,4 @@
-# ⚽ Futbolistas y Profesionales - Página Web con Servidor
+# ⚽ Futbolistas y Profesionales - Página Web
 
 Este proyecto es una página web sencilla, fue hecho en 2023 y se trata de un CRUD de futbolistas y profesionales.
 
