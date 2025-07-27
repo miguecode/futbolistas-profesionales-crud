@@ -41,6 +41,7 @@ Hasta este punto, ingresar a la página es fácil. Pero como este proyecto se ba
 - Este archivo php es quien funciona como receptor de las peticiones que hagamos en la página web. En este caso, el funcionamiento se logra ubicando el archivo php dentro de la carpeta 'htdocs' de la carpeta del XAMPP, con la intención de hacerlo correr gracias al servidor Apache. Esto quiere decir que es necesario tener instalado XAMPP en el sistema, para hacer uso del Servidor Apache.
 
 ## 📌 Aclaraciones
+
 - La idea del Servidor en este proyecto es la simulación del envío de petición y la recepción de la respuesta. Realmente no estamos guardando los datos en ninguna base de datos. Al reiniciar la página, todo vuelve a su estado base predeterminado, el cual nace del array que está en el archivo .php.
 - Cada vez que hacemos una petición al servidor, ya sea pedirle los datos (al iniciar), hacer un alta, una baja o una modificación, la aplicación muestra un loader durante 3 segundos, el cual es el tiempo establecido en la línea  `sleep(3);` del archivo .php.
 - En este proyecto, el verbo 'POST' se encarga de hacer modificaciones, y el 'PUT' se encarga de hacer altas.
