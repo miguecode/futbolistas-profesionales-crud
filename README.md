@@ -49,4 +49,4 @@ Hasta este punto, ingresar a la página es fácil. Pero como este proyecto se ba
 - No se aceptan contribuciones ni está bajo ninguna licencia específica.
 
 ## 🗃️ Otros proyectos similares
-- [Héroes y Villanos - ABM](https://github.com/Leumig/heroes-villanos-abm)
+- [Héroes y Villanos - ABM](https://github.com/miguecode/heroes-villanos-abm)
